@@ -5,6 +5,7 @@ require 'cucumber'
 require 'faker'
 require 'pry'
 require 'pry-byebug'
+require 'date'
 
 
 Capybara.register_driver :selenium do |app|
