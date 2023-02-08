@@ -8,7 +8,10 @@ class Form < SitePrism::Page
     element :mobile_input, 'input[placeholder="Mobile Number"]'
     element :date_birth_input, 'input[id="dateOfBirthInput"]'
     element :street_address_input, 'textarea[placeholder="Current Address"]'
-    element :register_btn, 'button[id="submit"]'
+    element :sports_label, 'label[for="hobbies-checkbox-1"]'
+    element :reading_label, 'label[for="hobbies-checkbox-2"]'
+    element :music_label, 'label[for="hobbies-checkbox-3"]'
+    element :upload_picture_btn, '#uploadPicture'
 
     def first_name
         @name = Faker::Name.female_first_name
@@ -30,16 +33,11 @@ class Form < SitePrism::Page
     end
 
     def mobile
-        mobile_input.set(Faker::PhoneNumber.subscriber_number(length: 8))
+        mobile_input.set(Faker::PhoneNumber.subscriber_number(length: 10))
     end
 
     def date_birth
         date_birth_input.set(Faker::Date.between(from: '1920-01-01', to: '2005-01-01'))
-    end
-
-    def hobbies
-        array = ['Sports', 'Reading', 'Music'].sample
-        Capybara.current_session.find(:xpath, "//*[text() = '#{array}']", wait: 5)
     end
 
     def street_address
@@ -56,7 +54,11 @@ class Form < SitePrism::Page
         Capybara.current_session.find(:xpath, "//*[text() = 'Delhi']", wait: 5).click
     end
 
+    def select_picture(insert_picture)
+        upload_picture_btn.set(insert_picture)
+    end
+
     def register
-        register_btn.click
+        find('button[id="submit"]', visible: false).click
     end
 end

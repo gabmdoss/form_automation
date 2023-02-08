@@ -10,10 +10,16 @@ Quando('inserir os dados de cadastro') do
     @form.gender
     @form.mobile
     @form.date_birth
-    @form.hobbies
     @form.street_address
     @form.state
     @form.city
+end
+
+Quando('inserir imagem de perfil:') do |table|
+    thumb_name = table.rows_hash
+    #insert_picture = Dir.pwd + "/features/support/img" + thumb_name[:thumb]
+    find('#uploadPicture').set('./img/' + "#{thumb_name[:thumb]}")
+    #@form.select_picture(insert_picture)
 end
 
 Quando('submeter o registro') do
